@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.domain;
+package com.guo.ticket.domain.entities;
 
 import com.guo.ticket.common.entity.BaseDO;
+import com.guo.ticket.domain.repositories.UserRepository;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
  * Date 2023/3/24.
@@ -26,6 +29,10 @@ import lombok.Data;
  */
 @Data
 public class User extends BaseDO {
+    
+    private String account;
+    
+    private String password;
     
     private String name;
     
@@ -43,19 +50,26 @@ public class User extends BaseDO {
      */
     private Short sex;
     
-    public User addUser() {
-        return null;
+    @Autowired
+    UserRepository userRepository;
+    
+    public void save() {
+        userRepository.add(this);
     }
     
-    public User deleteUser() {
-        return null;
+    public void deleteUser() {
+        Assert.notNull(this.getCode(), "用户编码不存在");
+        userRepository.deleteByCode(this.getCode());
     }
     
-    public User updateUser(){
-        return null;
+    public boolean updateUser(){
+        Assert.notNull(this.getCode(), "用户编码不存在");
+        return userRepository.update(this) > 0;
     }
     
-    public User query() {
-        return null;
+    public User query(String account, String password) {
+        Assert.notNull("account", "账号不能为空");
+        Assert.notNull(password, "密码不能为空");
+        return userRepository.select(account, password);
     }
 }

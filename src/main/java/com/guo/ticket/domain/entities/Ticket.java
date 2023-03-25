@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.controller;
+package com.guo.ticket.domain.entities;
 
-import com.guo.ticket.domain.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.guo.ticket.common.entity.BaseDO;
+import lombok.Data;
 
 /**
  * Date 2023/3/24.
  *
  * @author GuoJiangFu
  */
-@RestController
-@RequestMapping("/user")
-public class UserController {
+@Data
+public class Ticket extends BaseDO {
     
-    @Autowired
-    UserRepository userDAO;
+    private String name;
     
+    private String description;
+    
+    private Long price;
 }

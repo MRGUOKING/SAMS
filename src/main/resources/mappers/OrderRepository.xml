@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guo.ticket.domain.repositories.OrderRepository">
+    
+    <resultMap id="orderResultMap" type="com.guo.ticket.domain.entities.Order">
+        <id column="id" property="id" />
+        <result column="ticket_date" property="ticketDate" />
+        <result column="ticket_code" property="ticketCode" />
+        <result column="user_code" property="userCode" />
+        <result column="actual_price" property="actualPrice" />
+        <result column="discount_category_codes" property="discountCategoryCodes" />
+        <result column="code" property="code" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+    
+    <select id="getOrderById" parameterType="Long" resultMap="orderResultMap">
+    SELECT id, ticket_date, ticket_code, user_code, actual_price, discount_category_codes, code, create_time
+    FROM `order` WHERE code = #{code}
+  </select>
+    
+    <select id="queryByUser" resultMap="orderResultMap">
+    SELECT id, ticket_date, ticket_code, user_code, actual_price, discount_category_codes, code, create_time
+    FROM `order` WHERE user_code = #{userCode}
+    </select>
+    
+    <insert id="add" parameterType="com.guo.ticket.domain.entities.Order">
+    INSERT INTO `order` (ticket_date, ticket_code, user_code, actual_price, discount_category_codes, code, create_time)
+    VALUES (#{ticketDate}, #{ticketCode}, #{userCode}, #{actualPrice}, #{discountCategoryCodes}, #{code}, #{createTime})
+  </insert>
+    
+    <update id="updateOrder" parameterType="com.guo.ticket.domain.entities.Order">
+        UPDATE `order`
+        <set>
+            <if test="ticketDate != null">ticket_date = #{ticketDate}</if>
+            <if test="ticketCode != null">ticket_code = #{ticketCode}</if>
+            <if test="userCode != null">user_code = #{userCode}</if>
+            <if test="actualPrice != null">actual_price = #{actualPrice}</if>
+            <if test="discountCategoryCodes != null">discount_category_codes = #{discountCategoryCodes}</if>
+            <if test="createTime != null">create_time = #{createTime}</if>
+        </set>
+        WHERE code = #{code}
+    </update>
+    
+    <delete id="deleteByCode">
+    DELETE FROM `order` WHERE code = #{code}
+  </delete>
+
+</mapper>

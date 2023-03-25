@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.domain;
+package com.guo.ticket.domain.repositories;
 
-import com.guo.ticket.common.entity.BaseDO;
-import lombok.Data;
+import com.guo.ticket.domain.entities.DiscountCategory;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Date 2023/3/24.
  *
  * @author GuoJiangFu
  */
-@Data
-public class Ticket extends BaseDO {
+@Mapper
+public interface DiscountCategoryRepository {
     
-    private String itemType;
+    DiscountCategory add(DiscountCategory discountCategory);
     
-    private Long price;
+    void deleteByCode(@Param("code") String code);
+    
+    DiscountCategory update(DiscountCategory discountCategory);
 }

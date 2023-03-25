@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guo.ticket.domain.repositories.DiscountCategoryRepository">
+    
+    <insert id="add">
+        INSERT INTO
+        discount_category (code, create_time, discount_code, discount_type, ticket_code, discount)
+        values(#{code}, #{createTime}, #{discountCode}, #{discountType}, #{ticketCode}, #{discount})
+    </insert>
+    <update id="update">
+        UPDATE discount_category
+        <set>
+            <if test="discount_code != null and discount_code != ''">
+                discount_code = #{discountCode}
+            </if>
+            <if test="discount_type != null and discount_type != ''">
+                discountType = #{discountType
+            </if>
+            <if test="ticket_code != null and ticket_code != ''">
+                ticket_code = #{ticketCode}
+            </if>
+            <if test="discount != null">
+                discount = #{discount}
+            </if>
+        </set>
+    </update>
+    <delete id="deleteByCode">
+        DELETE FROM discount_category
+        WHERE code = #{code}
+    </delete>
+</mapper>

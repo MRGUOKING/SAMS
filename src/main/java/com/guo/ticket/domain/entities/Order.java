@@ -14,24 +14,28 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.domain;
+package com.guo.ticket.domain.entities;
 
 import com.guo.ticket.common.entity.BaseDO;
 import lombok.Data;
 
+import java.sql.Date;
+
 /**
- * Date 2023/3/24.
+ * Date 2023/3/25.
  *
  * @author GuoJiangFu
  */
 @Data
-public class DiscountCategory extends BaseDO {
+public class Order extends BaseDO {
     
-    private String discountCode;
-    
-    private String discountType;
+    private Date ticketDate;
     
     private String ticketCode;
     
-    private Integer discount;
+    private String userCode;
+    
+    private Integer actualPrice;
+    
+    private String discountCategoryCodes;
 }

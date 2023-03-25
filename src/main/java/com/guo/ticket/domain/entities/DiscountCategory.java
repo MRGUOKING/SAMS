@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.infrastructure.mapper;
+package com.guo.ticket.domain.entities;
 
-import com.guo.ticket.domain.Ticket;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import com.guo.ticket.common.entity.BaseDO;
+import lombok.Data;
 
 /**
  * Date 2023/3/24.
  *
  * @author GuoJiangFu
  */
-@Mapper
-public interface TicketDAO {
+@Data
+public class DiscountCategory extends BaseDO {
     
-    Ticket add(Ticket ticket);
+    private String discountCode;
+    
+    private String discountType;
+    
+    private String ticketCode;
+    
+    private Integer discount;
 }

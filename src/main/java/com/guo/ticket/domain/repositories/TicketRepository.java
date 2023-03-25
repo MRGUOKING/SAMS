@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.infrastructure.mapper;
+package com.guo.ticket.domain.repositories;
 
+import com.guo.ticket.domain.entities.Ticket;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * Date 2023/3/24.
@@ -25,6 +26,11 @@ import org.springframework.stereotype.Repository;
  * @author GuoJiangFu
  */
 @Mapper
-public interface DiscountCategoryDAO {
-
+public interface TicketRepository {
+    
+    Ticket add(Ticket ticket);
+    
+    boolean delete(@Param("code") String code);
+    
+    Ticket update(Ticket ticket);
 }
