@@ -17,7 +17,10 @@
 package com.guo.ticket.domain.entities;
 
 import com.guo.ticket.common.entity.BaseDO;
+import com.guo.ticket.domain.repositories.OrderRepository;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import java.sql.Date;
 
@@ -38,4 +41,23 @@ public class Order extends BaseDO {
     private Integer actualPrice;
     
     private String discountCategoryCodes;
+    
+    
+    @Autowired
+    OrderRepository orderRepository;
+    
+    public Order save() {
+        orderRepository.add(this);
+        return this;
+    }
+    
+    public void update() {
+        Assert.notNull(code, "编号不存在");
+        orderRepository.update(this);
+    }
+    
+    public void delete() {
+        Assert.notNull(code, "编号不存在");
+        orderRepository.deleteByCode(code);
+    }
 }

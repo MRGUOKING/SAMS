@@ -17,7 +17,10 @@
 package com.guo.ticket.domain.entities;
 
 import com.guo.ticket.common.entity.BaseDO;
+import com.guo.ticket.domain.repositories.TicketRepository;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
  * Date 2023/3/24.
@@ -32,4 +35,22 @@ public class Ticket extends BaseDO {
     private String description;
     
     private Long price;
+    
+    @Autowired
+    TicketRepository ticketRepository;
+    
+    
+    public void delete() {
+        Assert.notNull(code, "编码不能为空");
+        ticketRepository.delete(code);
+    }
+    
+    public void update() {
+        Assert.notNull("code", "编码不能为空");
+        ticketRepository.update(this);
+    }
+    
+    public void save() {
+        ticketRepository.add(this);
+    }
 }

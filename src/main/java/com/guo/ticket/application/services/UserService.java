@@ -14,25 +14,13 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.domain.repositories;
-
-import com.guo.ticket.domain.entities.DiscountCategory;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+package com.guo.ticket.application.services;
 
 /**
- * Date 2023/3/24.
+ * Date 2023/3/30.
  *
  * @author GuoJiangFu
  */
-@Mapper
-public interface DiscountCategoryRepository {
-    
-    DiscountCategory add(DiscountCategory discountCategory);
-    
-    void deleteByCode(@Param("code") String code);
-    
-    DiscountCategory update(DiscountCategory discountCategory);
-    
-    DiscountCategory getByCode(String code);
+public class UserService {
+
 }

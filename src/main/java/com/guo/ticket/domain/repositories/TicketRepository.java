@@ -20,6 +20,8 @@ import com.guo.ticket.domain.entities.Ticket;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * Date 2023/3/24.
  *
@@ -33,4 +35,10 @@ public interface TicketRepository {
     boolean delete(@Param("code") String code);
     
     Ticket update(Ticket ticket);
+    
+    List<Ticket> getAllTickets();
+    
+    Ticket getTicketByCode(String code);
+    
+    void deleteTicketByCode(String code);
 }

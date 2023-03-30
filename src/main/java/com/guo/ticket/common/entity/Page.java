@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-package com.guo.ticket.domain.repositories;
+package com.guo.ticket.common.entity;
 
-import com.guo.ticket.domain.entities.DiscountCategory;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import lombok.Data;
 
 /**
- * Date 2023/3/24.
+ * Date 2023/3/30.
  *
  * @author GuoJiangFu
  */
-@Mapper
-public interface DiscountCategoryRepository {
+@Data
+public class Page {
     
-    DiscountCategory add(DiscountCategory discountCategory);
+    private Integer curPage = 1;
     
-    void deleteByCode(@Param("code") String code);
+    private Integer pageSize = 10;
     
-    DiscountCategory update(DiscountCategory discountCategory);
-    
-    DiscountCategory getByCode(String code);
+    private Integer getStart() {
+        return (curPage - 1) * pageSize;
+    }
 }

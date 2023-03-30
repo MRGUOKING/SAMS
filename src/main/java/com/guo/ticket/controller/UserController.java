@@ -1,36 +1,72 @@
-/*
- * Copyright 1999-2022 Alibaba Group Holding Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.guo.ticket.controller;
 
+import com.guo.ticket.common.entity.Page;
+import com.guo.ticket.common.entity.Response;
+import com.guo.ticket.domain.entities.User;
 import com.guo.ticket.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Date 2023/3/24.
- *
- * @author GuoJiangFu
- */
-@RestController
-@RequestMapping("/user")
+import java.util.List;
+import java.util.UUID;
+
+@Controller
+@RequestMapping("/users")
 public class UserController {
     
-    @Autowired
-    UserRepository userDAO;
     
+    @Autowired
+    UserRepository userRepository;
+    
+    @GetMapping("")
+    public Response listUsers(Page page) {
+        List<User> users = userRepository.listUser(page);
+        return Response.success(users);
+    }
+    
+    @GetMapping("/{id}")
+    public Response getUserById(@PathVariable("id") String id) {
+        User user = userRepository.selectByCodeUser(id);
+        if (user != null) {
+            return Response.success(user);
+        } else {
+            return Response.fail("查询用户失败");
+        }
+    }
+    
+    @PostMapping("")
+    public Response createUser(@RequestBody User user) {
+        user.setCode(UUID.randomUUID().toString());
+        user.save();
+        return Response.success(null);
+    }
+    
+    @PutMapping("/{id}")
+    public Response updateUser(@RequestBody User user) {
+        try {
+            user.updateUser();
+            return Response.success(null);
+        } catch (Exception e) {
+            return Response.fail(e.getMessage());
+        }
+    }
+    
+    @DeleteMapping("/{id}")
+    public Response deleteUser(@PathVariable("id") String id) {
+        User user = new User();
+        user.setCode(id);
+        try {
+            user.deleteUser();
+            return Response.success(null);
+        } catch (Exception e) {
+            return Response.fail(e.getMessage());
+        }
+    }
 }

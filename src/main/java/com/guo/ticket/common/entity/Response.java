@@ -18,19 +18,40 @@ package com.guo.ticket.common.entity;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
- * Date 2023/3/24.
+ * Date 2023/3/30.
  *
  * @author GuoJiangFu
  */
 @Data
-public class BaseDO {
+public class Response<T> implements Serializable {
     
-    protected Long id;
+    private static final long serialVersionUID = 1L;
     
-    protected String code;
+    private Boolean success;
     
-    protected Date createTime;
+    private String message;
+    
+    private T data;
+    
+    private Response() {
+    }
+    
+    ;
+    
+    public static <T> Response<T> success(T data) {
+        Response<T> response = new Response<>();
+        response.setData(data);
+        response.setSuccess(true);
+        return response;
+    }
+    
+    public static <T> Response<T> fail(String message) {
+        Response<T> response = new Response<>();
+        response.setMessage(message);
+        response.setSuccess(false);
+        return response;
+    }
 }

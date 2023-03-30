@@ -3,6 +3,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guo.ticket.domain.repositories.DiscountCategoryRepository">
     
+    
+    <sql id="BaseColumn">
+        id, code, create_time, discount_code, discount_type, ticket_code, discount
+    </sql>
+    
     <insert id="add">
         INSERT INTO
         discount_category (code, create_time, discount_code, discount_type, ticket_code, discount)
@@ -29,4 +34,10 @@
         DELETE FROM discount_category
         WHERE code = #{code}
     </delete>
+    <select id="getByCode" resultType="com.guo.ticket.domain.entities.DiscountCategory">
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM discount_category
+        WHERE code = #{code}
+    </select>
 </mapper>

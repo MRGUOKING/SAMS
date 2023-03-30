@@ -53,4 +53,16 @@
         WHERE account = #{account}
         AND password = #{password}
     </select>
+    <select id="listUser" resultType="com.guo.ticket.domain.entities.User">
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM user
+        limit #{start}, #{pageSize}
+    </select>
+    <select id="selectByCodeUser" resultType="com.guo.ticket.domain.entities.User">
+        SELECT
+        <include refid="BaseColumn"/>
+        FROM user
+        WHERE code = #{code}
+    </select>
 </mapper>
